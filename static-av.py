@@ -1,5 +1,4 @@
 import hashlib
-import os
 
 def file_as_bytes(file):
     with file:
@@ -14,16 +13,14 @@ virus_signature = hashlib.md5(file_as_bytes(open(virus_file_name, 'rb'))).hexdig
 with open(hashlist_file_name , 'r') as scan:
 
     for sign in scan:
-        
+
         print("Comparing - > " , virus_signature ,"with", sign)
+
         if (virus_signature == sign):
 
-            malicious = input("File is malicious, do you want to delete this file ? (y/n) ")
-            if (malicious == 'y'):
-                os.system("shred -f -z -u -n 20 ", virus_file_name)
-            else:
-                print("Quitting...")
-                quit()
+            print("Signature Match. Exitting...")
+            quit()
+            
         
     print("File is not Malicious. Exitting...")
     quit()
